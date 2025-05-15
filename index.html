@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Me a Coffee dApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --secondary: #00b894;
+            --accent: #fdcb6e;
+            --dark: #2d3436;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3a8a, #0a1128);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Container */
+        .container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            width: 500px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 3D Coffee Icon */
+        .coffee-icon-3d {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .coffee-icon-3d i {
+            font-size: 4rem;
+            color: #6f4e37;
+            text-shadow: 0 0 10px rgba(111, 78, 55, 0.5);
+        }
+        
+        /* Steam Animation */
+        .steam-wrapper {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 30px;
+            overflow: hidden;
+        }
+        
+        .steam {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 8px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            animation: steam 2s infinite ease-out;
+            transform: translateY(0) scale(1);
+            opacity: 0;
+        }
+        
+        .steam:nth-child(2) {
+            left: 20px;
+            animation-delay: 0.3s;
+        }
+        
+        .steam:nth-child(3) {
+            left: 40px;
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes steam {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-15px) scale(1.5);
+                opacity: 0.5;
+            }
+            95% {
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(-30px) scale(2);
+                opacity: 0;
+            }
+        }
+        
+        /* Typography */
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        /* 3D Buttons with Hover Effects */
+        button {
+            background: rgba(79, 70, 229, 0.15);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease, transform 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        
+        button:hover::before {
+            transform: translateX(100%);
+        }
+        
+        button i {
+            margin-right: 8px;
+            transform: translateZ(5px);
+        }
+        
+        button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(1px) scale(0.98);
+        }
+        
+        #connectWallet {
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.15), rgba(79, 70, 229, 0.15));
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        #connectWallet:hover {
+            box-shadow: 0 7px 20px rgba(59, 130, 246, 0.3), 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+        
+        #buyCoffee {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.15));
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        #buyCoffee:hover {
+            box-shadow: 0 7px 20px rgba(139, 92, 246, 0.3), 0 0 15px rgba(139, 92, 246, 0.2);
+        }
+        
+        #checkBalance {
+            background: linear-gradient(45deg, rgba(99, 102, 241, 0.15), rgba(79, 70, 229, 0.15));
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        #checkBalance:hover {
+            box-shadow: 0 7px 20px rgba(99, 102, 241, 0.3), 0 0 15px rgba(99, 102, 241, 0.2);
+        }
+        
+        #coffeeActions {
+            display: none;
+            margin-top: 20px;
+        }
+        
+        #balance {
+            margin-top: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 17, 40, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: #a5b4fc;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        .loading p {
+            margin-top: 15px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Transaction History Styling */
+        #transactions {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        #transactions h3 {
+            color: white;
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border-left: 3px solid #a5b4fc;
+            color: white;
+        }
+        
+        .transaction-address {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .transaction-amount {
+            font-weight: bold;
+            color: #a5b4fc;
+        }
+        
+        /* Input Styling */
+        input[type="number"] {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 15px;
+            color: white;
+            font-size: 1rem;
+            margin: 10px 0;
+            width: 150px;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="number"]:focus {
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+        }
+        
+        label {
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                margin: 5px;
+            }
+        }
+        
+        /* Connected address styling */
+        .connected-address {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+    
+    <div class="container">
+        <!-- 3D Coffee Icon -->
+        <div class="coffee-icon-3d">
+            <i class="fas fa-mug-hot"></i>
+            <div class="steam-wrapper">
+                <div class="steam"></div>
+                <div class="steam"></div>
+                <div class="steam"></div>
+            </div>
+        </div>
+        
+        <h1>Buy Me a Coffee <i class="fas fa-coffee"></i></h1>
+        <p>Support my work by buying me a virtual coffee! Connect your wallet to get started.</p>
+        
+        <button id="connectWallet"><i class="fas fa-wallet"></i> Connect Wallet</button>
+        
+        <div id="coffeeActions" style="display: none;">
+            <label for="ethAmount">Enter amount in ETH:</label>
+            <input type="number" id="ethAmount" step="0.001" min="0.001" placeholder="0.01">
+            <button id="buyCoffee"><i class="fas fa-coffee"></i> Buy Coffee</button>
+            <button id="checkBalance"><i class="fas fa-coins"></i> Check Balance</button>
+            <div id="balance"></div>
+        </div>
+        
+        <!-- Transaction History -->
+        <div id="transactions" style="display: none;">
+            <h3>Recent Transactions</h3>
+            <div id="transactionList" class="transaction-list">
+                <!-- Transactions will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js" type="module"></script>
+    
+</body>
+</html>
