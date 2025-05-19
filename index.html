@@ -220,6 +220,16 @@
             box-shadow: 0 7px 20px rgba(99, 102, 241, 0.3), 0 0 15px rgba(99, 102, 241, 0.2);
         }
         
+        #withdrawFunds {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.15));
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        #withdrawFunds:hover {
+            box-shadow: 0 7px 20px rgba(139, 92, 246, 0.3), 0 0 15px rgba(139, 92, 246, 0.2);
+        }
+        
         #coffeeActions {
             display: none;
             margin-top: 20px;
@@ -402,6 +412,7 @@
             <input type="number" id="ethAmount" step="0.001" min="0.001" placeholder="0.01">
             <button id="buyCoffee"><i class="fas fa-coffee"></i> Buy Coffee</button>
             <button id="checkBalance"><i class="fas fa-coins"></i> Check Balance</button>
+            <button id="withdrawFunds"><i class="fas fa-wallet"></i> Withdraw Funds</button>
             <div id="balance"></div>
         </div>
         

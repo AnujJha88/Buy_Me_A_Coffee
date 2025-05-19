@@ -6,6 +6,7 @@ import { contractAddress,  CoffeeAbi } from "./constants-js.js"
 const connectButton = document.getElementById('connectWallet');
 const buyButton = document.getElementById('buyCoffee');
 const checkButton = document.getElementById('checkBalance');
+const withdrawButton = document.getElementById('withdrawFunds');
 const coffeeActions = document.getElementById('coffeeActions');
 const ethAmountInput = document.getElementById('ethAmount');
 let WalletClient;
@@ -69,6 +70,42 @@ async function buyCoffee() {
   
 }
 
+async function withdrawFunds() {
+    if (typeof window.ethereum !== "undefined") {
+        try {
+            WalletClient = createWalletClient({
+                transport: custom(window.ethereum),
+            });
+            const [account] = await WalletClient.requestAddresses();
+            const currentChain = await getCurrentChain(WalletClient);
+
+            console.log("Initiating withdrawal...");
+            PubLicClient = createPublicClient({
+                transport: custom(window.ethereum),
+            });
+            
+            const { request } = await PubLicClient.simulateContract({
+                address: contractAddress,
+                abi: CoffeeAbi,
+                functionName: "withdraw",
+                account,
+                chain: currentChain,
+            });
+            
+            const hash = await WalletClient.writeContract(request);
+            console.log("Withdrawal transaction hash: ", hash);
+            
+            // Optional: Show success message
+            alert('Withdrawal initiated! Transaction hash: ' + hash);
+            
+        } catch (error) {
+            console.error("Withdrawal failed:", error);
+            alert('Withdrawal failed: ' + (error.message || 'Unknown error'));
+        }
+    } else {
+        alert("Please install MetaMask!");
+    }
+}
 
 async function getCurrentChain(client) {
     // Get the chain ID from the connected wallet client
@@ -108,8 +145,8 @@ async function checkBalance() {
  }
 }
 
-
-connectButton.onclick = connect
-buyButton.onclick = buyCoffee
-checkButton.onclick = checkBalance
-
+// Connect buttons to their functions
+connectButton.onclick = connect;
+buyButton.onclick = buyCoffee;
+checkButton.onclick = checkBalance;
+withdrawButton.onclick = withdrawFunds;
